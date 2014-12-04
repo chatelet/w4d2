@@ -4,6 +4,13 @@ class Cat < ActiveRecord::Base
     message: "select a sex"}
   validates :color, inclusion: { in: %w(black white grey ginger blue tabby) }
 
+  has_many(
+    :cat_rental_requests,
+    class_name: "CatRentalRequest",
+    foreign_key: :cat_id,
+    primary_key: :id
+  )
+
   def age
     now = Time.now.utc.to_date
     now.year - self.birth_date.year -
