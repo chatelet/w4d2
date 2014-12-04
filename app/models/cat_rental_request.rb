@@ -18,11 +18,11 @@ class CatRentalRequest < ActiveRecord::Base
   def init_status
     self[:status] ||= "PENDING"
   end
-  
+
   def overlapping_requests
-    Cats.all
+    CatRentalRequest.all
       .where.not("end_date < #{self.start_date} || start_date > #{self.end_date}")
-      .where.not(:id)
+      .where.not(:cat_id)
   end
 
   def overlapping_approved_requests
@@ -31,6 +31,11 @@ class CatRentalRequest < ActiveRecord::Base
     results = overlapping_requests
       .where(:status => "APPROVED")
     !results.empty?
+  end
+
+  def overlapping_pending_requests
+    overlapping_requests
+      .where(:status => "PENDING")
   end
 
 end
