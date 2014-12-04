@@ -1,0 +1,39 @@
+
+
+<form action="/cats/<%= @cat[:id] %>" method="post">
+  <input type="hidden" name="_method" value="<%= @cat.persisted? ? "patch" : "post" %>">
+
+  <label for="cat_name">Name</label>
+  <input type="text" name="cat[name]" value="<%= @cat.name %>">
+  <br>
+
+  <input type="radio" name="cat[sex]" id="cat_sex_male" value="M" <%= @cat.sex == "M" ? "checked" : "" %> >
+  <label for="cat_sex_male">Male</label>
+  <br>
+  <input type="radio" name="cat[sex]" id="cat_sex_female" value="F" <%= @cat.sex == "F" ? "checked" : "" %> >
+  <label for="cat_sex_female">Female</label>
+  <br>
+
+  <% colors =  %w(black white grey ginger blue tabby) %>
+  <label for="cat_color">Color</label>
+  <select id="cat_color" name="cat[color]">
+    <%= @cat.persisted? ? "" : "<option disabled selected> -- select an option -- </option>".html_safe %>
+    <% colors.each do |color| %>
+    <option value="<%= color %>" <%= color == @cat[:color] ? "selected" : ""%>><%= color.capitalize %></option>
+    <% end %>
+  </select>
+  <br>
+
+  <label for="cat_birth_date">Birth_date</label>
+  <input id="cat_birth_date" type="date" name="cat[birth_date]" value="<%= @cat.birth_date %>">
+  <br>
+
+  <label for="cat_description">Description</label>
+  <!-- <input id="cat_description" type="textarea" name="cat[description]" "> -->
+  <textarea name="cat_description" rows="8" cols="40"><%= @cat.description %></textarea>
+  <br>
+
+  <input type="submit" value="Submit">
+  <br>
+
+</form>

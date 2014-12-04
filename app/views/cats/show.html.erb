@@ -1,0 +1,18 @@
+<h1>Show <%= @cat[:name] %></h1>
+  <table>
+    <tr>
+      <% @cat.attributes.each do |name, value| %>
+        <th>
+          <%= name %>
+        </th>
+      <% end %>
+    </tr>
+
+    <tr>
+      <% @cat.attributes.each do |name, value| %>
+        <td>
+          <%= value %>
+        </td>
+      <% end %>
+    </tr>
+  </table>
